@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+            <ImageView
+                android:id="@+id/imageViewPoster"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:scaleType="fitXY"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@drawable/title_background"
+                    android:orientation="vertical"
+                    android:gravity="bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin">
+                <TextView
+                    android:id="@+id/textViewMovieOrTvShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                    android:text="Movie/TvShow"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="@color/colorAccent"
+                    />
+                        <TextView
+                            android:id="@+id/textViewYear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Year"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:textColor="#fff"
+                            android:layout_marginLeft="4dp"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:text="Movie Title"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:textSize="@dimen/title"
+                        android:textColor="#fff"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:id="@+id/textViewTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewReleaseDateRuntime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Runtime"
+                        android:fontFamily="monospace"
+                        android:textColor="#fff"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                        />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+            <TextView
+            android:id="@+id/textViewDirector"
+            android:text="Director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingBottom="8dp"
+                android:textColor="#9E9E9E"
+            />
+
+                    <TextView
+                        android:id="@+id/textViewCountry"
+                        android:text="Country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:paddingBottom="@dimen/activity_horizontal_margin"
+                        android:textColor="#9E9E9E"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:gravity="center">
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_weight="1">-->
+
+                        <TextView
+                            android:id="@+id/textViewVoteAverage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#FFC107"
+                            android:textSize="20sp"
+                            />
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="20dp"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/imdb_logo"/>
+                    <!--</LinearLayout>-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_weight="1">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/textViewTmdbVote"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="8.1"-->
+                            <!--android:textColor="#00E676"-->
+                            <!--android:textSize="20sp"-->
+                            <!--/>-->
+                        <!--<ImageView-->
+                            <!--android:layout_width="40dp"-->
+                            <!--android:layout_height="20dp"-->
+                            <!--android:scaleType="fitStart"-->
+                            <!--android:src="@drawable/tmdb_logo"/>-->
+                    <!--</LinearLayout>-->
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewMovieTagline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tagline"
+                android:fontFamily="sans-serif-smallcaps"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_vertical_margin"
+                android:paddingBottom="16dp"
+                android:textColor="@color/colorAccent"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SYNOPSIS:"
+                android:paddingTop="16dp"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:textColor="#000"
+                android:background="#fff"
+                />
+
+            <TextView
+                android:background="#fff"
+                android:id="@+id/textViewOverview"
+                android:text="Overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#131b1e">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_face_white_36dp"
+                    />
+
+                <TextView
+                    android:text="Casting"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewCasting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="#131b1e">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_movie_white_36dp" />
+
+                <TextView
+                    android:text="Videos"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewTrailers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#131b1e">
+            <TextView
+                android:text="People who liked this"
+                android:fontFamily="sans-serif-smallcaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#455A64"
+                />
+            <TextView
+                android:text="Also Liked:"
+                android:fontFamily="sans-serif-smallcaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

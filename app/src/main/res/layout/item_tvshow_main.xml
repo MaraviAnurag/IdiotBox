@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="270dp"
+    android:background="#000">
+    <!--<ImageView-->
+        <!--android:id="@+id/imageViewBackdrop"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" -->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/sample_poster"/>-->
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d5191923">
+
+    <ImageView
+        android:id="@+id/imageViewTvShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"/>
+
+    <LinearLayout
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+        <TextView
+            android:id="@+id/textViewTvShowName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="24sp"
+            android:text="Name"
+            android:textColor="#fff"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/tv_show_accent"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 SEASONS"
+            android:layout_marginBottom="8dp"
+            android:textColor="#fff"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last: 21 Feb 2017"
+            android:layout_marginBottom="8dp"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next: 2016"
+            android:layout_marginBottom="8dp"
+            android:textColor="#fff"
+            android:id="@+id/textView3" />
+
+
+    </LinearLayout>
+</LinearLayout>
+</RelativeLayout>

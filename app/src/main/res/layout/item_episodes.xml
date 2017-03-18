@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/imageViewEpisode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:layout_weight="2"
+        android:src="@drawable/cover"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textViewEpisodeNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EP 1"
+                android:textSize="16sp"
+                android:textColor="#9E9E9E"
+                />
+
+            <TextView
+                android:id="@+id/textViewEpisodeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Episode Name"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewAirDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="24 Jul 2011"
+            android:textColor="#fff"
+            android:layout_marginBottom="8dp"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:textColor="#9E9E9E"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
