@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.merakiworks.idiotbox">
+    package="com.merakiphi.idiotbox">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,7 +13,7 @@
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.merakiphi.idiotbox.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Main">
             <intent-filter>
@@ -23,7 +23,7 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".activity.SearchActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.SearchActivity"
             android:theme="@style/MovieDetails"
             android:launchMode="singleTop">
             <meta-data
@@ -31,20 +31,20 @@
                 android:value=".SearchResultsActivity" />
             </activity>
         <activity
-            android:name=".activity.AboutUsActivity"
+            android:name="com.merakiphi.idiotbox.activity.AboutUsActivity"
             android:label="@string/activity_title_about_us" />
         <activity
-            android:name=".activity.PrivacyPolicyActivity"
+            android:name="com.merakiphi.idiotbox.activity.PrivacyPolicyActivity"
             android:label="@string/activity_title_privacy_policy" />
-        <activity android:name=".activity.MovieDetailsActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.MovieDetailsActivity"
         android:theme="@style/MovieDetails"/>
-        <activity android:name=".activity.TvShowDetailsActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.TvShowDetailsActivity"
             android:theme="@style/MovieDetails"/>
-        <activity android:name=".activity.CastDetailsActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.CastDetailsActivity"
         android:theme="@style/MovieDetails"/>
-        <activity android:name=".activity.EpisodeActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.EpisodeActivity"
             android:theme="@style/MovieDetails"/>
-        <activity android:name=".activity.SeasonActivity"
+        <activity android:name="com.merakiphi.idiotbox.activity.SeasonActivity"
             android:theme="@style/MovieDetails"/>
     </application>
 
