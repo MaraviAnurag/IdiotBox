@@ -46,6 +46,9 @@
             android:theme="@style/MovieDetails"/>
         <activity android:name="com.merakiphi.idiotbox.activity.SeasonActivity"
             android:theme="@style/MovieDetails"/>
+        <activity android:name="com.merakiphi.idiotbox.activity.CastImageActivity"
+            android:theme="@style/MovieDetails"/>
+
     </application>
 
 </manifest>

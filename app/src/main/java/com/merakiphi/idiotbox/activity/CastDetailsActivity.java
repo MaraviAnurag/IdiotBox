@@ -301,7 +301,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                             for(int i=0;i<parentArray.length();i++){
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 Movie movieModel = new Movie();
-                                movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("file_path"));
+                                movieModel.setCastingProfilePath(finalObject.getString("file_path"));
                                 castingList.add(movieModel);
                             }
                         } catch (JSONException e) {
