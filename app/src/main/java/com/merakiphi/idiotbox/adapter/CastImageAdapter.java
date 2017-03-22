@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.merakiphi.idiotbox.model.Movie;
+
+import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_BASE_URL;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
@@ -19,14 +22,17 @@ import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
 public class CastImageAdapter extends PagerAdapter {
     Context context;
     String imagePath;
+    private List<Movie> movieList = null;
 
-    public CastImageAdapter(Context context, String imagePath){
+
+    public CastImageAdapter(Context context, List<Movie> movieList){
         this.context=context;
         this.imagePath = imagePath;
+        this.movieList = movieList;
     }
     @Override
     public int getCount() {
-        return 1;
+        return movieList.size();
     }
 
     @Override
@@ -37,7 +43,8 @@ public class CastImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        Glide.with(context).load(API_IMAGE_BASE_URL  + API_IMAGE_SIZE_XXL + "/" + imagePath).into(imageView);
+        final Movie movie = movieList.get(position);
+        Glide.with(context).load(API_IMAGE_BASE_URL  + API_IMAGE_SIZE_XXL + "/" + movie.getCastingProfilePath()).into(imageView);
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }

@@ -292,11 +292,12 @@ public class CastDetailsActivity extends AppCompatActivity {
         String castingImagesRequest = API_URL + API_CASTING + "/" + castId + "/images?api_key=" + API_KEY;
         StringRequest stringRequestCastingImages = new StringRequest(Request.Method.GET, castingImagesRequest,
                 new Response.Listener<String>() {
+                    JSONObject parentObject;
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(Cast Images): " + response);
                         try {
-                            JSONObject parentObject= new JSONObject(response);
+                            parentObject= new JSONObject(response);
                             JSONArray parentArray = parentObject.getJSONArray("profiles");
                             for(int i=0;i<parentArray.length();i++){
                                 JSONObject finalObject = parentArray.getJSONObject(i);
@@ -308,7 +309,11 @@ public class CastDetailsActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        adapterCasting = new CastingImagesAdapter(getApplicationContext(), castingList);
+                        try {
+                            adapterCasting = new CastingImagesAdapter(getApplicationContext(), castingList, parentObject.getInt("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         recyclerViewImages.setAdapter(adapterCasting);
                     }
                 }, new Response.ErrorListener() {
