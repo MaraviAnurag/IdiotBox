@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.activity.CastImageActivity;
 import com.merakiphi.idiotbox.model.Movie;
-import com.merakiphi.idiotbox.other.Contract;
 
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class CastingImagesAdapter extends RecyclerView.Adapter<CastingImagesAdap
     private List<Movie> movieList = null;
     private String profileId;
 
+
     @Override
     public CastingImagesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -36,7 +36,7 @@ public class CastingImagesAdapter extends RecyclerView.Adapter<CastingImagesAdap
     @Override
     public void onBindViewHolder(CastingImagesAdapter.MyViewHolder holder, int position) {
         final Movie movie = movieList.get(position);
-        Glide.with(mContext).load(Contract.API_IMAGE_URL + movie.getCastingProfilePath()).into(holder.imageViewSimilar);
+        Glide.with(mContext).load(movie.getCastingProfilePath()).into(holder.imageViewSimilar);
         holder.imageViewSimilar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

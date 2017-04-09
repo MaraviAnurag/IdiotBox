@@ -295,6 +295,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                     JSONObject parentObject;
                     @Override
                     public void onResponse(String response) {
+
                         Log.i(TAG, "onResponse(Cast Images): " + response);
                         try {
                             parentObject= new JSONObject(response);
@@ -302,7 +303,7 @@ public class CastDetailsActivity extends AppCompatActivity {
                             for(int i=0;i<parentArray.length();i++){
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 Movie movieModel = new Movie();
-                                movieModel.setCastingProfilePath(finalObject.getString("file_path"));
+                                movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("file_path"));
                                 castingList.add(movieModel);
                             }
                         } catch (JSONException e) {
@@ -311,10 +312,10 @@ public class CastDetailsActivity extends AppCompatActivity {
 
                         try {
                             adapterCasting = new CastingImagesAdapter(getApplicationContext(), castingList, parentObject.getInt("id"));
+                            recyclerViewImages.setAdapter(adapterCasting);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        recyclerViewImages.setAdapter(adapterCasting);
                     }
                 }, new Response.ErrorListener() {
             @Override

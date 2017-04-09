@@ -48,7 +48,6 @@
             android:theme="@style/MovieDetails"/>
         <activity android:name="com.merakiphi.idiotbox.activity.CastImageActivity"
             android:theme="@style/MovieDetails"/>
-
     </application>
 
 </manifest>
