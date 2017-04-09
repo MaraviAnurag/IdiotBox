@@ -21,13 +21,11 @@ import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_SIZE_XXL;
 
 public class CastImageAdapter extends PagerAdapter {
     Context context;
-    String imagePath;
     private List<Movie> movieList = null;
 
 
     public CastImageAdapter(Context context, List<Movie> movieList){
         this.context=context;
-        this.imagePath = imagePath;
         this.movieList = movieList;
     }
     @Override
