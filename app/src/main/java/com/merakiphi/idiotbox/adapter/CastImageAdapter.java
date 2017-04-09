@@ -24,6 +24,7 @@ public class CastImageAdapter extends PagerAdapter {
     private List<Movie> movieList = null;
 
 
+
     public CastImageAdapter(Context context, List<Movie> movieList){
         this.context=context;
         this.movieList = movieList;
@@ -43,7 +44,7 @@ public class CastImageAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         final Movie movie = movieList.get(position);
         Glide.with(context).load(API_IMAGE_BASE_URL  + API_IMAGE_SIZE_XXL + "/" + movie.getCastingProfilePath()).into(imageView);
-        ((ViewPager) container).addView(imageView, 0);
+        ((ViewPager) container).addView(imageView);
         return imageView;
     }
 

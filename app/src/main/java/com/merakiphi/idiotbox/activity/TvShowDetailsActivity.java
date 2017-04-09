@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
             textViewTmdbVote,
             textViewMovieTagline,
             textViewCountry;
+    private ImageView imageViewPoster;
+    private LinearLayout linearLayoutTitle;
 
     //Similar Tv Shows
     private RecyclerView recyclerViewSimilar;
@@ -76,6 +80,9 @@ public class TvShowDetailsActivity extends AppCompatActivity {
     private List<TvShow> tvShowCastingList= new ArrayList<>();
     private  RecyclerView.Adapter adapterTvShowCasting;
     private RecyclerView.LayoutManager layoutManagerTvShowCasting;
+
+    //To show or hide title box
+    boolean isShown = true;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +103,23 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         textViewCountry = (TextView) findViewById(R.id.textViewCountry);
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
+
+        linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
+        imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
+        imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isShown) {
+                    linearLayoutTitle.setVisibility(View.INVISIBLE);
+                    isShown = false;
+                }
+                else {
+                    linearLayoutTitle.setVisibility(View.VISIBLE);
+                    isShown = true;
+                }
+
+            }
+        });
 
 
 

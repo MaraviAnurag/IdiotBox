@@ -34,7 +34,7 @@ public class CastingImagesAdapter extends RecyclerView.Adapter<CastingImagesAdap
     }
 
     @Override
-    public void onBindViewHolder(CastingImagesAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(CastingImagesAdapter.MyViewHolder holder, final int position) {
         final Movie movie = movieList.get(position);
         Glide.with(mContext).load(movie.getCastingProfilePath()).into(holder.imageViewSimilar);
         holder.imageViewSimilar.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +43,7 @@ public class CastingImagesAdapter extends RecyclerView.Adapter<CastingImagesAdap
                 Intent intent = new Intent(mContext, CastImageActivity.class);
                 intent.putExtra("image_path", movie.getCastingProfilePath());
                 intent.putExtra("profileId", profileId);
+                intent.putExtra("position", position);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

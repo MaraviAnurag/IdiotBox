@@ -59,6 +59,8 @@ public class CastImageActivity extends AppCompatActivity {
 
                         CastImageAdapter adapter = new CastImageAdapter(getApplicationContext(), castingList);
                         viewPager.setAdapter(adapter);
+                        viewPager.setCurrentItem(getIntent().getIntExtra("position", 0));
+
                     }
                 }, new Response.ErrorListener() {
             @Override

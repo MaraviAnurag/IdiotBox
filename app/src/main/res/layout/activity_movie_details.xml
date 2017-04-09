@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/imageViewPoster"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:scaleX="fitStart"-->
+        <!--android:src="@drawable/album1"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,14 +23,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="500dp">
+                android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imageViewPoster"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:scaleType="fitXY"/>
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"/>
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutTitle"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:background="@drawable/title_background"
@@ -121,11 +129,6 @@
                     android:layout_weight="2"
                     android:gravity="center">
 
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:layout_weight="1">-->
 
                         <TextView
                             android:id="@+id/textViewVoteAverage"
@@ -139,27 +142,7 @@
                             android:layout_height="20dp"
                             android:scaleType="fitStart"
                             android:src="@drawable/imdb_logo"/>
-                    <!--</LinearLayout>-->
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:layout_weight="1">-->
 
-                        <!--<TextView-->
-                            <!--android:id="@+id/textViewTmdbVote"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="8.1"-->
-                            <!--android:textColor="#00E676"-->
-                            <!--android:textSize="20sp"-->
-                            <!--/>-->
-                        <!--<ImageView-->
-                            <!--android:layout_width="40dp"-->
-                            <!--android:layout_height="20dp"-->
-                            <!--android:scaleType="fitStart"-->
-                            <!--android:src="@drawable/tmdb_logo"/>-->
-                    <!--</LinearLayout>-->
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -222,7 +205,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewCasting"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -280,4 +263,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

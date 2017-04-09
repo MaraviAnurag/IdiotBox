@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,9 +56,10 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             textViewOverview,
             textViewMovieOrTvShow,
             textViewYear,
-            textViewTmdbVote,
             textViewMovieTagline,
             textViewCountry;
+    private ImageView imageViewPoster;
+    private LinearLayout linearLayoutTitle;
 
     //Similar Movies
     private RecyclerView recyclerViewSimilar;
@@ -76,8 +79,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
     private  RecyclerView.Adapter adapterCasting;
     private RecyclerView.LayoutManager layoutManagerCasting;
 
-
-
+    //To show or hide title box
+    boolean isShown = true;
 
 
     @Override
@@ -99,7 +102,22 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         textViewCountry = (TextView) findViewById(R.id.textViewCountry);
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
-//        textViewTmdbVote = (TextView) findViewById(R.id.textViewTmdbVote);
+        linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
+        imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
+        imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isShown) {
+                    linearLayoutTitle.setVisibility(View.INVISIBLE);
+                    isShown = false;
+                }
+                else {
+                    linearLayoutTitle.setVisibility(View.VISIBLE);
+                    isShown = true;
+                }
+
+            }
+        });
 
 
         /**
@@ -265,12 +283,13 @@ public class MovieDetailsActivity  extends AppCompatActivity {
      */
     private void parseAndDisplayData(String response) throws JSONException {
         //ToDo: Add this data for on persistent storage
-        JSONObject parentObject= new JSONObject(response);
-        Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into((ImageView) findViewById(R.id.imageViewPoster));
+        final JSONObject parentObject= new JSONObject(response);
+        Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into(imageViewPoster);
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_title"));
         textViewMovieTagline.setText(parentObject.getString("tagline"));
 //        textViewTmdbVote.setText(parentObject.getString("vote_average"));
+
 
         //Send Request to imdb database using imdb Id
         StringRequest stringRequestImdb = new StringRequest(Request.Method.GET, OMDB_BASE_URL + parentObject.getString("imdb_id"),
@@ -317,4 +336,5 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -32,6 +32,7 @@ public class Movie {
     castingId,
     castingProfilePath,
     castingCharacter;
+    int castImagePosition;
 
     private boolean adult;
     private JSONArray genreIds;
@@ -205,5 +206,13 @@ public class Movie {
 
     public void setCastingCharacter(String castingCharacter) {
         this.castingCharacter = castingCharacter;
+    }
+
+    public int getCastImagePosition() {
+        return castImagePosition;
+    }
+
+    public void setCastImagePosition(int castImagePosition) {
+        this.castImagePosition = castImagePosition;
     }
 }
