@@ -98,7 +98,6 @@ public class CastDetailsActivity extends AppCompatActivity {
         imageViewFollowTwitter = (ImageView) findViewById(R.id.imageViewFollowTwitter);
         imageViewFollowImdb = (ImageView) findViewById(R.id.imageViewFollowImdb);
         imageViewFollowInstagram = (ImageView) findViewById(R.id.imageViewFollowInstagram);
-//        textViewTmdbVote = (TextView) findViewById(R.id.textViewTmdbVote);
 
         /**
          * Cast Details
