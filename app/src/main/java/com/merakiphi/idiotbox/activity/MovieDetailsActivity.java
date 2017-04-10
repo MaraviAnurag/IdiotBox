@@ -293,17 +293,7 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCasting);
 
         } else {
-            setContentView(R.layout.fragment_no_internet);
-            TAG = getClass().getSimpleName();
-            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            this.getSupportActionBar().setTitle("");
-            findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                    startActivity(getIntent());
-                }
-            });
+            setNoInternetView();
         }
 
     }
@@ -359,6 +349,22 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         textViewVoteAverage.setText( parentObject.getString("imdbRating"));
     }
 
+    /**
+     * This method sets the no internet connection layout when internet is not available.
+     */
+    private void setNoInternetView() {
+        setContentView(R.layout.fragment_no_internet);
+        TAG = getClass().getSimpleName();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("");
+        findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -371,3 +377,4 @@ public class MovieDetailsActivity  extends AppCompatActivity {
 
 
 }
+

@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +64,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
             textViewCountry;
     private ImageView imageViewPoster;
     private LinearLayout linearLayoutTitle;
+    private ScrollView container;
+    private ProgressBar progressBar;
 
     //Similar Tv Shows
     private RecyclerView recyclerViewSimilar;
@@ -93,7 +97,9 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         this.getSupportActionBar().setTitle("");
         tvShowId = getIntent().getStringExtra("tvshow_id");
 
+
         //Views Initialisation
+        container = (ScrollView) findViewById(R.id.container);
         textViewOverview = (TextView) findViewById(R.id.textViewOverview);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
@@ -103,6 +109,9 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         textViewCountry = (TextView) findViewById(R.id.textViewCountry);
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
         imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
@@ -284,6 +293,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         //ToDo: Add this data for on persistent storage
         JSONObject parentObject = new JSONObject(response);
         Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into((ImageView) findViewById(R.id.imageViewPoster));
+        container.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_name"));
         String tvName = parentObject.getString("original_name");
