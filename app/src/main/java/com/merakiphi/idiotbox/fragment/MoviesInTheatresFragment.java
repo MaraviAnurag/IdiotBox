@@ -38,7 +38,7 @@ import static com.merakiphi.idiotbox.other.Contract.MOVIE_NOW_PLAYING_REQUEST;
  */
 
 public class MoviesInTheatresFragment extends Fragment {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewMoviesInTheatres;
     private MoviesAdapter adapter;
     private List<Movie> movieListInTheatres = new ArrayList<>();
     private View rootView;
@@ -60,12 +60,12 @@ public class MoviesInTheatresFragment extends Fragment {
         /**
          * In Theatres Movies
          */
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesInTheatres);
+        recyclerViewMoviesInTheatres = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesInTheatres);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
+        recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerViewMoviesInTheatres.setItemAnimator(new DefaultItemAnimator());
         if(movieListInTheatres.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_NOW_PLAYING_REQUEST,
                     new Response.Listener<String>() {
@@ -84,7 +84,7 @@ public class MoviesInTheatresFragment extends Fragment {
                                     movieListInTheatres.add(movieModel);
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListInTheatres);
-                                recyclerView.setAdapter(adapter);
+                                recyclerViewMoviesInTheatres.setAdapter(adapter);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -102,7 +102,7 @@ public class MoviesInTheatresFragment extends Fragment {
 
         else{
             adapter = new MoviesAdapter(getActivity(), movieListInTheatres);
-            recyclerView.setAdapter(adapter);
+            recyclerViewMoviesInTheatres.setAdapter(adapter);
         }
 
         return rootView;

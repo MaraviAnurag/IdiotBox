@@ -26,6 +26,7 @@ import com.merakiphi.idiotbox.adapter.TvShowCastingAdapter;
 import com.merakiphi.idiotbox.adapter.TvShowSeasonsAdapter;
 import com.merakiphi.idiotbox.model.Movie;
 import com.merakiphi.idiotbox.model.TvShow;
+import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -89,7 +90,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tvshow_details);
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
+            setContentView(R.layout.activity_tvshow_details);
         TAG = getClass().getSimpleName();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("");
@@ -273,6 +275,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
 
                         adapterSimilarTvShow = new SimilarTvShowAdapter(getApplicationContext(), similarTvShowList);
                         recyclerViewSimilar.setAdapter(adapterSimilarTvShow);
+                        container.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -282,6 +286,27 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestSimilar);
+    } else {
+        setNoInternetView();
+    }
+
+}
+
+    /**
+     * This method sets the no internet connection layout when internet is not available.
+     */
+    private void setNoInternetView() {
+        setContentView(R.layout.fragment_no_internet);
+        TAG = getClass().getSimpleName();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("");
+        findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
     }
 
     /**
@@ -291,8 +316,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         //ToDo: Add this data for on persistent storage
         JSONObject parentObject = new JSONObject(response);
         Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into((ImageView) findViewById(R.id.imageViewPoster));
-        container.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
+
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_name"));
         String tvName = parentObject.getString("original_name");

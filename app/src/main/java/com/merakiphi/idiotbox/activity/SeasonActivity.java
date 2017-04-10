@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.EpisodesAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
+import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -55,6 +58,8 @@ public class SeasonActivity extends AppCompatActivity {
             textViewCountry;
     private ImageView imageViewPoster;
     private LinearLayout linearLayoutTitle;
+    private ScrollView container;
+    private ProgressBar progressBar;
 
     //Episodes
     private RecyclerView recyclerViewEpisodes;
@@ -66,7 +71,8 @@ public class SeasonActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_season);
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
+            setContentView(R.layout.activity_season);
         TAG = getClass().getSimpleName();
         tvShowName = getIntent().getStringExtra("tvshow_name");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,7 +82,8 @@ public class SeasonActivity extends AppCompatActivity {
 
 
         //Views Initialisation
-        textViewOverview = (TextView) findViewById(R.id.textViewOverview);
+            container = (ScrollView) findViewById(R.id.container);
+            textViewOverview = (TextView) findViewById(R.id.textViewOverview);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
         textViewYear = (TextView) findViewById(R.id.textViewYear);
@@ -86,7 +93,11 @@ public class SeasonActivity extends AppCompatActivity {
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
         linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
-        imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
+
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
         imageViewPoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,8 +116,28 @@ public class SeasonActivity extends AppCompatActivity {
         //Method to show TVshow details
         displayTvShowEpisodes();
 
+        } else {
+            setNoInternetView();
+        }
+
     }
 
+    /**
+     * This method sets the no internet connection layout when internet is not available.
+     */
+    private void setNoInternetView() {
+        setContentView(R.layout.fragment_no_internet);
+        TAG = getClass().getSimpleName();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("");
+        findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+    }
 
     /**
      * Parse data for TV Show Details and show it.
@@ -146,6 +177,8 @@ public class SeasonActivity extends AppCompatActivity {
                             recyclerViewEpisodes.setNestedScrollingEnabled(false);
                             recyclerViewEpisodes.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
                             recyclerViewEpisodes.setAdapter(adapterEpisodes);
+                            container.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

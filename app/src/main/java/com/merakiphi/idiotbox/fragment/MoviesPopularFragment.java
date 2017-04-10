@@ -38,7 +38,7 @@ import static com.merakiphi.idiotbox.other.Contract.MOVIE_POPULAR_REQUEST;
  */
 
 public class MoviesPopularFragment extends Fragment {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewMoviesPopular;
     private MoviesAdapter adapter;
     private List<Movie> movieListPopular = new ArrayList<>();
     private View rootView;
@@ -60,11 +60,11 @@ public class MoviesPopularFragment extends Fragment {
         /**
          * Popular Movies
          */
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesPopular);
+        recyclerViewMoviesPopular = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesPopular);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewMoviesPopular.setLayoutManager(mLayoutManager);
+        recyclerViewMoviesPopular.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerViewMoviesPopular.setItemAnimator(new DefaultItemAnimator());
         if(movieListPopular.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_POPULAR_REQUEST,
                     new Response.Listener<String>() {
@@ -83,7 +83,7 @@ public class MoviesPopularFragment extends Fragment {
                                     movieListPopular.add(movieModel);
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListPopular);
-                                recyclerView.setAdapter(adapter);
+                                recyclerViewMoviesPopular.setAdapter(adapter);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -101,7 +101,7 @@ public class MoviesPopularFragment extends Fragment {
 
         else{
             adapter = new MoviesAdapter(getActivity(), movieListPopular);
-            recyclerView.setAdapter(adapter);
+            recyclerViewMoviesPopular.setAdapter(adapter);
         }
 
         return rootView;

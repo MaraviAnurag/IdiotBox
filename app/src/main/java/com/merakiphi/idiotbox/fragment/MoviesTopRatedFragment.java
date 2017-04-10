@@ -39,7 +39,7 @@ import static com.merakiphi.idiotbox.other.Contract.MOVIE_TOP_RATED_REQUEST;
 
 public class MoviesTopRatedFragment extends Fragment {
     private String tvShowDetailsRequest;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewMoviesTopRated;
     private MoviesAdapter adapter;
     private List<Movie> movieListTopRated= new ArrayList<>();
     private View rootView;
@@ -61,12 +61,12 @@ public class MoviesTopRatedFragment extends Fragment {
         /**
          * Top Rated Movies
          */
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTopRated);
+        recyclerViewMoviesTopRated = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTopRated);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewMoviesTopRated.setLayoutManager(mLayoutManager);
+        recyclerViewMoviesTopRated.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerViewMoviesTopRated.setItemAnimator(new DefaultItemAnimator());
         if(movieListTopRated.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_TOP_RATED_REQUEST,
                     new Response.Listener<String>() {
@@ -85,7 +85,7 @@ public class MoviesTopRatedFragment extends Fragment {
                                     movieListTopRated.add(movieModel);
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListTopRated);
-                                recyclerView.setAdapter(adapter);
+                                recyclerViewMoviesTopRated.setAdapter(adapter);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -102,7 +102,7 @@ public class MoviesTopRatedFragment extends Fragment {
 
         else{
             adapter = new MoviesAdapter(getActivity(), movieListTopRated);
-            recyclerView.setAdapter(adapter);
+            recyclerViewMoviesTopRated.setAdapter(adapter);
         }
 
         return rootView;

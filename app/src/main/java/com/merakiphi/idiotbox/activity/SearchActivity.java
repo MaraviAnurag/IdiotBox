@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.SearchResultAdapter;
 import com.merakiphi.idiotbox.model.SearchResults;
+import com.merakiphi.idiotbox.other.CheckInternet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +61,8 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
+            setContentView(R.layout.activity_search);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("");
         TAG = SearchActivity.class.getSimpleName();
@@ -75,7 +77,29 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
         queue = Volley.newRequestQueue(this);
 
+        } else {
+            setNoInternetView();
+        }
+
     }
+
+    /**
+     * This method sets the no internet connection layout when internet is not available.
+     */
+    private void setNoInternetView() {
+        setContentView(R.layout.fragment_no_internet);
+        TAG = getClass().getSimpleName();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("");
+        findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+    }
+
 
 
     @Override
@@ -108,12 +132,15 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
                         return false;
                     }
                 });
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
-        searchView.requestFocus();
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
+
+            searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(true);
+            searchView.setOnQueryTextListener(this);
+            searchView.setOnCloseListener(this);
+            searchView.requestFocus();
+        }
         return true;
     }
     @Override
@@ -129,16 +156,19 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(newText.length() != 0) {
-            progressBar.setVisibility(View.VISIBLE);
-            recyclerViewSearchResults.setVisibility(View.GONE);
-            queue.cancelAll(VOLLEY_TAG);
-            sendRequest(newText);
-        } else {
-            progressBar.setVisibility(View.GONE);
-            recyclerViewSearchResults.setVisibility(View.GONE);
-        }
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
 
+            if (newText.length() != 0) {
+                progressBar.setVisibility(View.VISIBLE);
+                recyclerViewSearchResults.setVisibility(View.GONE);
+                queue.cancelAll(VOLLEY_TAG);
+                sendRequest(newText);
+            } else {
+                progressBar.setVisibility(View.GONE);
+                recyclerViewSearchResults.setVisibility(View.GONE);
+            }
+
+        }
         return false;
     }
 

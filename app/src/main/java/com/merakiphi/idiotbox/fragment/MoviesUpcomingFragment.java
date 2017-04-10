@@ -37,7 +37,7 @@ import java.util.List;
 
 public class MoviesUpcomingFragment extends Fragment {
     private String tvShowDetailsRequest;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewMoviesUpcoming;
     private MoviesAdapter adapter;
     private List<Movie> movieListUpcoming= new ArrayList<>();
     private View rootView;
@@ -59,12 +59,12 @@ public class MoviesUpcomingFragment extends Fragment {
         /**
          * Upcoming Movies
          */
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesUpcoming);
+        recyclerViewMoviesUpcoming = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesUpcoming);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewMoviesUpcoming.setLayoutManager(mLayoutManager);
+        recyclerViewMoviesUpcoming.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerViewMoviesUpcoming.setItemAnimator(new DefaultItemAnimator());
         if(movieListUpcoming.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, Contract.MOVIE_UPCOMING_REQUEST,
                     new Response.Listener<String>() {
@@ -83,7 +83,7 @@ public class MoviesUpcomingFragment extends Fragment {
                                     movieListUpcoming.add(movieModel);
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListUpcoming);
-                                recyclerView.setAdapter(adapter);
+                                recyclerViewMoviesUpcoming.setAdapter(adapter);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -100,7 +100,7 @@ public class MoviesUpcomingFragment extends Fragment {
 
         else{
             adapter = new MoviesAdapter(getActivity(), movieListUpcoming);
-            recyclerView.setAdapter(adapter);
+            recyclerViewMoviesUpcoming.setAdapter(adapter);
         }
 
         return rootView;
