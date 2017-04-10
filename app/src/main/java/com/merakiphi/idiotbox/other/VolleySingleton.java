@@ -17,9 +17,9 @@ public class VolleySingleton {
     private static VolleySingleton mInstance;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private static Context mCtx;
+    private Context mCtx;
 
-    private VolleySingleton(Context context) {
+    public VolleySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
 

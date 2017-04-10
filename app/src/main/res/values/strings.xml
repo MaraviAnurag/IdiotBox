@@ -40,6 +40,7 @@
     <string name="dot">• </string>
     <string name="search_hint">Search Movies, TvShows</string>
     <string name="search">Search</string>
+    <string name="no_internet">Some error occurred!\n Please check your internet connection.</string>
 
 
 </resources>

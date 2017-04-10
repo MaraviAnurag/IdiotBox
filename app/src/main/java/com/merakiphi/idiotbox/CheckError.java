@@ -23,7 +23,4 @@ public class CheckError {
                 Toast.makeText(context, "Unable to get " + name + " data.\nPlease Try Again Later.", Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,8 +43,6 @@ public class SeasonActivity extends AppCompatActivity {
     String TAG;
     String episodeId, seasonNumber, tvShowId, tvShowName;
 
-    //to measure the width
-    private LinearLayout linearLayout;
     private TextView textViewDirector,
             textViewTitle,
             textViewVoteAverage,
@@ -54,12 +53,16 @@ public class SeasonActivity extends AppCompatActivity {
             textViewTmdbVote,
             textViewMovieTagline,
             textViewCountry;
+    private ImageView imageViewPoster;
+    private LinearLayout linearLayoutTitle;
 
     //Episodes
     private RecyclerView recyclerViewEpisodes;
     private List<TvShow> listEpisodes= new ArrayList<>();
     private  RecyclerView.Adapter adapterEpisodes;
     private RecyclerView.LayoutManager layoutManagerEpisodes;
+    //To show or hide title box
+    boolean isShown = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +85,22 @@ public class SeasonActivity extends AppCompatActivity {
         textViewCountry = (TextView) findViewById(R.id.textViewCountry);
         textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
+        imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
+        imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isShown) {
+                    linearLayoutTitle.setVisibility(View.INVISIBLE);
+                    isShown = false;
+                }
+                else {
+                    linearLayoutTitle.setVisibility(View.VISIBLE);
+                    isShown = true;
+                }
 
+            }
+        });
 
         //Method to show TVshow details
         displayTvShowEpisodes();

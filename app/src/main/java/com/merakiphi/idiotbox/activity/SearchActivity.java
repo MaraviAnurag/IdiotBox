@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,6 +53,10 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
     private  RecyclerView.Adapter adapterSearchResults;
     private RecyclerView.LayoutManager layoutManagerSearchResults;
 
+    private ProgressBar progressBar;
+    private RequestQueue queue;
+    private static final String VOLLEY_TAG = "VT";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,11 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
         recyclerViewSearchResults = (RecyclerView) findViewById(R.id.recyclerViewSearchResults);
         recyclerViewSearchResults.setLayoutManager(layoutManagerSearchResults);
         recyclerViewSearchResults.setItemAnimator(new DefaultItemAnimator());
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
+        queue = Volley.newRequestQueue(this);
+
     }
 
 
@@ -118,17 +129,24 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        sendRequest(newText);
+        if(newText.length() != 0) {
+            progressBar.setVisibility(View.VISIBLE);
+            recyclerViewSearchResults.setVisibility(View.GONE);
+            queue.cancelAll(VOLLEY_TAG);
+            sendRequest(newText);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            recyclerViewSearchResults.setVisibility(View.GONE);
+        }
+
         return false;
     }
 
     public void sendRequest(String query){
         query = query.replace(" ", "+");
         final List<SearchResults> searchResultsList= new ArrayList<>();
-        RequestQueue queue = Volley.newRequestQueue(this);
         String urlSearch =  "https://api.themoviedb.org/3/search/multi?api_key="+ API_KEY + "&language=en-US&page=1&include_adult=false&query=" + query;
-        //Send Request to imdb database using imdb Id
-        final StringRequest stringRequestSearch = new StringRequest(Request.Method.GET, urlSearch,
+        StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, urlSearch,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -156,7 +174,9 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
                             e.printStackTrace();
                         }
                         adapterSearchResults = new SearchResultAdapter(getApplicationContext(), searchResultsList);
+                        recyclerViewSearchResults.setVisibility(View.VISIBLE);
                         recyclerViewSearchResults.setAdapter(adapterSearchResults);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -165,6 +185,8 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
             }
         });
         // Add the request to the RequestQueue.
-        queue.add(stringRequestSearch);
+        stringRequestEpisodes.setTag(VOLLEY_TAG);
+        queue.add(stringRequestEpisodes);
+
     }
 }

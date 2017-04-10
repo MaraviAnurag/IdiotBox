@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.merakiphi.idiotbox.adapter.CastingAdapter;
 import com.merakiphi.idiotbox.adapter.SimilarAdapter;
 import com.merakiphi.idiotbox.adapter.TrailerAdapter;
 import com.merakiphi.idiotbox.model.Movie;
+import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -60,6 +63,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
             textViewCountry;
     private ImageView imageViewPoster;
     private LinearLayout linearLayoutTitle;
+    private ScrollView container;
+    private ProgressBar progressBar;
 
     //Similar Movies
     private RecyclerView recyclerViewSimilar;
@@ -86,195 +91,220 @@ public class MovieDetailsActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
-        TAG = getClass().getSimpleName();
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setTitle("");
-        movieId = getIntent().getStringExtra("movie_id");
 
-        //Views Initialisation
-        textViewOverview = (TextView) findViewById(R.id.textViewOverview);
-        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-        textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
-        textViewYear = (TextView) findViewById(R.id.textViewYear);
-        textViewReleaseDateRuntime = (TextView) findViewById(R.id.textViewReleaseDateRuntime);
-        textViewDirector = (TextView) findViewById(R.id.textViewDirector);
-        textViewCountry = (TextView) findViewById(R.id.textViewCountry);
-        textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
-        textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
-        linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
-        imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
-        imageViewPoster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isShown) {
-                    linearLayoutTitle.setVisibility(View.INVISIBLE);
-                    isShown = false;
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()){
+            setContentView(R.layout.activity_movie_details);
+            TAG = getClass().getSimpleName();
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setTitle("");
+            movieId = getIntent().getStringExtra("movie_id");
+
+            //Views Initialisation
+            container = (ScrollView) findViewById(R.id.container);
+            textViewOverview = (TextView) findViewById(R.id.textViewOverview);
+            textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+            textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
+            textViewYear = (TextView) findViewById(R.id.textViewYear);
+            textViewReleaseDateRuntime = (TextView) findViewById(R.id.textViewReleaseDateRuntime);
+            textViewDirector = (TextView) findViewById(R.id.textViewDirector);
+            textViewCountry = (TextView) findViewById(R.id.textViewCountry);
+            textViewVoteAverage = (TextView) findViewById(R.id.textViewVoteAverage);
+            textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
+            linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
+            imageViewPoster = (ImageView) findViewById(R.id.imageViewPoster);
+
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            imageViewPoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isShown) {
+                        linearLayoutTitle.setVisibility(View.INVISIBLE);
+                        isShown = false;
+                    }
+                    else {
+                        linearLayoutTitle.setVisibility(View.VISIBLE);
+                        isShown = true;
+                    }
+
                 }
-                else {
-                    linearLayoutTitle.setVisibility(View.VISIBLE);
-                    isShown = true;
+            });
+
+
+
+            /**
+             * Movie Details
+             */
+            //Movie Details Request
+            movieDetailsRequest = API_URL + API_MOVIE + "/" + movieId + "?api_key=" + API_KEY;
+
+            //request movie details
+            StringRequest stringRequestTmdb = new StringRequest(Request.Method.GET, movieDetailsRequest,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i(TAG, "onResponse(TMDb): " + response);
+                            try {
+                                parseAndDisplayData(response);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
                 }
+            });
+            // Add the request to the RequestQueue.
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTmdb);
 
-            }
-        });
-
-
-        /**
-         * Movie Details
-         */
-        //Movie Details Request
-        movieDetailsRequest = API_URL + Contract.API_MOVIE + "/" + movieId + "?api_key=" + Contract.API_KEY;
-
-        //request movie details
-        StringRequest stringRequestTmdb = new StringRequest(Request.Method.GET, movieDetailsRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(TMDb): " + response);
-                        try {
-                            parseAndDisplayData(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTmdb);
-
-        /**
-         * Trailers
-         */
-        //RecyclerView Trailers
-        layoutManagerTrailers = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewTrailers = (RecyclerView) findViewById(R.id.recyclerViewTrailers);
-        recyclerViewTrailers.setLayoutManager(layoutManagerTrailers);
-        recyclerViewTrailers.setItemAnimator(new DefaultItemAnimator());
+            /**
+             * Trailers
+             */
+            //RecyclerView Trailers
+            layoutManagerTrailers = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewTrailers = (RecyclerView) findViewById(R.id.recyclerViewTrailers);
+            recyclerViewTrailers.setLayoutManager(layoutManagerTrailers);
+            recyclerViewTrailers.setItemAnimator(new DefaultItemAnimator());
 
 
-        //Request Trailers
-        String trailersRequest = API_URL + API_MOVIE + "/" + movieId + "/videos?api_key=" + API_KEY;
-        StringRequest stringRequestTrailers = new StringRequest(Request.Method.GET, trailersRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(Trailers): " + response);
-                        try {
-                            JSONObject parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("results");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                Movie movieModel = new Movie();
-                                movieModel.setVideoKey(finalObject.getString("key"));
-                                movieModel.setVideoName(finalObject.getString("name"));
-                                movieModel.setVideoType(finalObject.getString("type"));
-                                trailersList.add(movieModel);
+            //Request Trailers
+            String trailersRequest = API_URL + API_MOVIE + "/" + movieId + "/videos?api_key=" + API_KEY;
+            StringRequest stringRequestTrailers = new StringRequest(Request.Method.GET, trailersRequest,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i(TAG, "onResponse(Trailers): " + response);
+                            try {
+                                JSONObject parentObject= new JSONObject(response);
+                                JSONArray parentArray = parentObject.getJSONArray("results");
+                                for(int i=0;i<parentArray.length();i++){
+                                    JSONObject finalObject = parentArray.getJSONObject(i);
+                                    Movie movieModel = new Movie();
+                                    movieModel.setVideoKey(finalObject.getString("key"));
+                                    movieModel.setVideoName(finalObject.getString("name"));
+                                    movieModel.setVideoType(finalObject.getString("type"));
+                                    trailersList.add(movieModel);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                            adapterTrailers = new TrailerAdapter(getApplicationContext(), trailersList);
+                            recyclerViewTrailers.setAdapter(adapterTrailers);
                         }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                }
+            });
+            // Add the request to the RequestQueue.
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTrailers);
 
-                        adapterTrailers = new TrailerAdapter(getApplicationContext(), trailersList);
-                        recyclerViewTrailers.setAdapter(adapterTrailers);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestTrailers);
-
-        /**
-         * Similar Movies
-         */
-        //RecyclerView Similar Movies
-        similarLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewSimilar = (RecyclerView) findViewById(R.id.recyclerViewSimilar);
-        recyclerViewSimilar.setLayoutManager(similarLayoutManager);
-        recyclerViewSimilar.setItemAnimator(new DefaultItemAnimator());
-        //Request Similar movies
-        String similarMovieRequest = API_URL + API_MOVIE + "/" + movieId + "/similar?api_key=" + API_KEY;
-        StringRequest stringRequestSimilar = new StringRequest(Request.Method.GET, similarMovieRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(Similar): " + response);
-                        try {
-                            JSONObject parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("results");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                Movie movieModel = new Movie();
-                                movieModel.setSimilarId(finalObject.getString("id"));
-                                movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
-                                similarMovieList.add(movieModel);
+            /**
+             * Similar Movies
+             */
+            //RecyclerView Similar Movies
+            similarLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewSimilar = (RecyclerView) findViewById(R.id.recyclerViewSimilar);
+            recyclerViewSimilar.setLayoutManager(similarLayoutManager);
+            recyclerViewSimilar.setItemAnimator(new DefaultItemAnimator());
+            //Request Similar movies
+            String similarMovieRequest = API_URL + API_MOVIE + "/" + movieId + "/similar?api_key=" + API_KEY;
+            StringRequest stringRequestSimilar = new StringRequest(Request.Method.GET, similarMovieRequest,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i(TAG, "onResponse(Similar): " + response);
+                            try {
+                                JSONObject parentObject= new JSONObject(response);
+                                JSONArray parentArray = parentObject.getJSONArray("results");
+                                for(int i=0;i<parentArray.length();i++){
+                                    JSONObject finalObject = parentArray.getJSONObject(i);
+                                    Movie movieModel = new Movie();
+                                    movieModel.setSimilarId(finalObject.getString("id"));
+                                    movieModel.setSimilarPosterPath(Contract.API_IMAGE_URL + finalObject.getString("poster_path"));
+                                    similarMovieList.add(movieModel);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                            adapter = new SimilarAdapter(getApplicationContext(), similarMovieList);
+                            recyclerViewSimilar.setAdapter(adapter);
                         }
-
-                        adapter = new SimilarAdapter(getApplicationContext(), similarMovieList);
-                        recyclerViewSimilar.setAdapter(adapter);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestSimilar);
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                }
+            });
+            // Add the request to the RequestQueue.
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestSimilar);
 
 
-        /**
-         * Casting
-         */
-        //RecyclerView Casting
-        layoutManagerCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewCasting = (RecyclerView) findViewById(R.id.recyclerViewCasting);
-        recyclerViewCasting.setLayoutManager(layoutManagerCasting);
-        recyclerViewCasting.setItemAnimator(new DefaultItemAnimator());
-        //Request Casting
-        String castingMovieRequest = API_URL + API_MOVIE + "/" + movieId + "/credits?api_key=" + API_KEY;
-        StringRequest stringRequestCasting = new StringRequest(Request.Method.GET, castingMovieRequest,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(TAG, "onResponse(Credits): " + response);
-                        try {
-                            JSONObject parentObject= new JSONObject(response);
-                            JSONArray parentArray = parentObject.getJSONArray("cast");
-                            for(int i=0;i<parentArray.length();i++){
-                                JSONObject finalObject = parentArray.getJSONObject(i);
-                                Movie movieModel = new Movie();
-                                movieModel.setCastingId(finalObject.getString("id"));
-                                movieModel.setCastingCharacter(finalObject.getString("character"));
-                                movieModel.setCastingName(finalObject.getString("name"));
-                                movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
-                                castingList.add(movieModel);
+            /**
+             * Casting
+             */
+            //RecyclerView Casting
+            layoutManagerCasting = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewCasting = (RecyclerView) findViewById(R.id.recyclerViewCasting);
+            recyclerViewCasting.setLayoutManager(layoutManagerCasting);
+            recyclerViewCasting.setItemAnimator(new DefaultItemAnimator());
+            //Request Casting
+            String castingMovieRequest = API_URL + API_MOVIE + "/" + movieId + "/credits?api_key=" + API_KEY;
+            StringRequest stringRequestCasting = new StringRequest(Request.Method.GET, castingMovieRequest,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i(TAG, "onResponse(Credits): " + response);
+                            try {
+                                JSONObject parentObject= new JSONObject(response);
+                                JSONArray parentArray = parentObject.getJSONArray("cast");
+                                for(int i=0;i<parentArray.length();i++){
+                                    JSONObject finalObject = parentArray.getJSONObject(i);
+                                    Movie movieModel = new Movie();
+                                    movieModel.setCastingId(finalObject.getString("id"));
+                                    movieModel.setCastingCharacter(finalObject.getString("character"));
+                                    movieModel.setCastingName(finalObject.getString("name"));
+                                    movieModel.setCastingProfilePath(Contract.API_IMAGE_URL + finalObject.getString("profile_path"));
+                                    castingList.add(movieModel);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
-                        adapterCasting = new CastingAdapter(getApplicationContext(), castingList);
-                        recyclerViewCasting.setAdapter(adapterCasting);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Add the request to the RequestQueue.
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCasting);
+                            adapterCasting = new CastingAdapter(getApplicationContext(), castingList);
+                            recyclerViewCasting.setAdapter(adapterCasting);
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Add the request to the RequestQueue.
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequestCasting);
+
+        } else {
+            setContentView(R.layout.fragment_no_internet);
+            TAG = getClass().getSimpleName();
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setTitle("");
+            findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    startActivity(getIntent());
+                }
+            });
+        }
 
     }
 
@@ -285,6 +315,8 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         //ToDo: Add this data for on persistent storage
         final JSONObject parentObject= new JSONObject(response);
         Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into(imageViewPoster);
+        container.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_title"));
         textViewMovieTagline.setText(parentObject.getString("tagline"));
@@ -306,7 +338,7 @@ public class MovieDetailsActivity  extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Some Error Occurred. Please Try again.", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.
@@ -336,5 +368,6 @@ public class MovieDetailsActivity  extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
