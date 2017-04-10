@@ -50,8 +50,6 @@ import static com.merakiphi.idiotbox.other.Contract.OMDB_BASE_URL;
 public class TvShowDetailsActivity extends AppCompatActivity {
     String TAG, tvShowId, tvShowDetailsRequest, tvShowExternalIdsRequest, tvShowCastingRequest;
 
-
-
     private TextView textViewDirector,
             textViewTitle,
             textViewVoteAverage,

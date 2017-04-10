@@ -23,8 +23,6 @@ public class CastImageAdapter extends PagerAdapter {
     Context context;
     private List<Movie> movieList = null;
 
-
-
     public CastImageAdapter(Context context, List<Movie> movieList){
         this.context=context;
         this.movieList = movieList;

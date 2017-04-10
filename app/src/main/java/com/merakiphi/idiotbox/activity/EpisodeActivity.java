@@ -6,10 +6,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.EpisodesAdapter;
 import com.merakiphi.idiotbox.adapter.SeasonListAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
+import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
@@ -70,11 +74,14 @@ public class EpisodeActivity extends AppCompatActivity {
     private List<TvShow> listEpisodes= new ArrayList<>();
     private  RecyclerView.Adapter adapterEpisodes;
     private RecyclerView.LayoutManager layoutManagerEpisodes;
+    private ScrollView container;
+    private ProgressBar progressBar;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_episode);
+        if(CheckInternet.getInstance(getApplicationContext()).isNetworkConnected()) {
+            setContentView(R.layout.activity_episode);
         TAG = getClass().getSimpleName();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("");
@@ -83,7 +90,8 @@ public class EpisodeActivity extends AppCompatActivity {
         tvShowId = getIntent().getStringExtra("tvshow_id");
 
         //Views Initialisation
-        textViewOverview = (TextView) findViewById(R.id.textViewOverview);
+            container = (ScrollView) findViewById(R.id.container);
+            textViewOverview = (TextView) findViewById(R.id.textViewOverview);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewMovieOrTvShow = (TextView) findViewById(R.id.textViewMovieOrTvShow);
         textViewYear = (TextView) findViewById(R.id.textViewYear);
@@ -94,7 +102,11 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewMovieTagline = (TextView) findViewById(R.id.textViewMovieTagline);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
-        String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "?api_key=" + Contract.API_KEY;
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+
+            String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "?api_key=" + Contract.API_KEY;
         StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, episodeUrl,
                 new Response.Listener<String>() {
                     @Override
@@ -130,7 +142,29 @@ public class EpisodeActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        } else {
+            setNoInternetView();
+        }
+
     }
+
+    /**
+     * This method sets the no internet connection layout when internet is not available.
+     */
+    private void setNoInternetView() {
+        setContentView(R.layout.fragment_no_internet);
+        TAG = getClass().getSimpleName();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("");
+        findViewById(R.id.buttonTryAgain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+    }
+
 
 
 
@@ -233,6 +267,8 @@ public class EpisodeActivity extends AppCompatActivity {
                             recyclerViewSeasons.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             recyclerViewSeasons.setNestedScrollingEnabled(false);
                             recyclerViewSeasons.setAdapter(adapterTvShowSeasons);
+                            container.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
