@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.merakiphi.idiotbox.R;
@@ -36,9 +35,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final TvShow movie = movieList.get(position);
         Glide.with(mContext).load(movie.getTvShowPosterPath()).into(holder.imageViewTvShow);
-//        Glide.with(mContext).load(movie.getTvShowBackdropPath()).into(holder.imageViewBackdrop);
-        holder.textViewTvShowName.setText(movie.getTvShowName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.imageViewTvShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, TvShowDetailsActivity.class);
@@ -60,13 +57,10 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageViewTvShow, imageViewBackdrop;
-        public TextView textViewTvShowName;
+        public ImageView imageViewTvShow;
         public MyViewHolder(View view) {
             super(view);
-            imageViewTvShow = (ImageView) view.findViewById(R.id.imageViewTvShow);
-//            imageViewBackdrop = (ImageView) view.findViewById(R.id.imageViewBackdrop);
-            textViewTvShowName = (TextView) view.findViewById(R.id.textViewTvShowName);
+            imageViewTvShow = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
 }

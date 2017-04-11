@@ -2,8 +2,7 @@ package com.merakiphi.idiotbox.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,11 +69,9 @@ public class TvShowFragmentAiringToday extends Fragment {
         /**
          * Popular Tv shows
          */
-        layoutManagerTvShows = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShows);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
-
-        recyclerViewTvShows.setItemAnimator(new DefaultItemAnimator());
         tvShowDetailsRequest = API_URL + Contract.API_TV + "/airing_today?api_key=" + Contract.API_KEY;
         StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
                 new Response.Listener<String>() {
@@ -116,5 +113,6 @@ public class TvShowFragmentAiringToday extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
+
 
 }

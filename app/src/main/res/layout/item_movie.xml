@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
         <ImageView

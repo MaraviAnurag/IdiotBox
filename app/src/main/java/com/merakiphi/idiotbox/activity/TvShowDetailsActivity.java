@@ -141,6 +141,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow Details): " + response);
+                        Log.i(TAG, "URL (TvShow Details): " + tvShowDetailsRequest);
                         try {
                             parseAndDisplayData(response);
                         } catch (JSONException e) {
@@ -211,13 +212,18 @@ public class TvShowDetailsActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow External Ids): " + response);
                         try {
-                            JSONObject parentObject= new JSONObject(response);
+                            final JSONObject parentObject= new JSONObject(response);
                             //Send Request to imdb database using imdb Id
                             StringRequest stringRequestImdb = new StringRequest(Request.Method.GET, OMDB_BASE_URL + parentObject.getString("imdb_id"),
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
                                             Log.i(TAG, "onResponse(IMDb): " + response);
+                                            try {
+                                                Log.i(TAG, "URL (IMDb): " + OMDB_BASE_URL + parentObject.getString("imdb_id"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                             try {
                                                 parseAndDisplayDataImdb(response);
                                             } catch (JSONException e) {
@@ -319,6 +325,7 @@ public class TvShowDetailsActivity extends AppCompatActivity {
 
         textViewOverview.setText(parentObject.getString("overview"));
         textViewTitle.setText(parentObject.getString("original_name"));
+        textViewMovieTagline.setText(parentObject.getString("status"));
         String tvName = parentObject.getString("original_name");
         //Showing Seasons
         JSONArray parentArray = parentObject.getJSONArray("seasons");
@@ -350,8 +357,8 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         JSONObject parentObject = new JSONObject(response);
         textViewMovieOrTvShow.setText(parentObject.getString("Type"));
         textViewYear.setText(parentObject.getString("Year"));
-        textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated"));
-        textViewDirector.setText("Awards: " + parentObject.getString("Awards"));
+        textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
+        textViewDirector.setText("Writer:  " + parentObject.getString("Writer"));
         textViewCountry.setText( parentObject.getString("Country"));
         textViewVoteAverage.setText( parentObject.getString("imdbRating"));
     }

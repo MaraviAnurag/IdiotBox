@@ -1,11 +1,13 @@
 package com.merakiphi.idiotbox.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +72,7 @@ public class TvShowFragmentTopRated extends Fragment {
         /**
          * Top Rated Tv shows
          */
-        layoutManagerTvShows = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowsTopRated);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
 
@@ -114,6 +116,14 @@ public class TvShowFragmentTopRated extends Fragment {
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequestTvShowDetails);
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    /**
+     * Converting dp to pixel
+     */
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
 }
