@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +39,8 @@ import static com.merakiphi.idiotbox.other.Contract.API_URL;
 public class TvShowFragmentPopular extends Fragment {
     View rootView;
     private String tvShowDetailsRequest;
+    private ProgressBar progressBar;
+
     //Tv Shows
     private RecyclerView recyclerViewTvShows;
     private List<TvShow> tvShowsListPopular= new ArrayList<>();
@@ -58,6 +61,10 @@ public class TvShowFragmentPopular extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_tvshow_popular, container, false);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 
         /**
          * Popular Tv shows
@@ -133,6 +140,8 @@ public class TvShowFragmentPopular extends Fragment {
                             }
                             adapterTvShows = new TvShowAdapter(getActivity(), tvShowsListPopular);
                             recyclerViewTvShows.setAdapter(adapterTvShows);
+                            recyclerViewTvShows.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

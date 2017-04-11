@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -43,6 +44,8 @@ public class MoviesTopRatedFragment extends Fragment {
     private MoviesAdapter adapter;
     private List<Movie> movieListTopRated= new ArrayList<>();
     private View rootView;
+    private ProgressBar progressBar;
+
 
     public MoviesTopRatedFragment() {
         // Required empty public constructor
@@ -57,6 +60,10 @@ public class MoviesTopRatedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_movie_top_rated, container, false);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 
         /**
          * Top Rated Movies
@@ -103,6 +110,8 @@ public class MoviesTopRatedFragment extends Fragment {
         else{
             adapter = new MoviesAdapter(getActivity(), movieListTopRated);
             recyclerViewMoviesTopRated.setAdapter(adapter);
+            recyclerViewMoviesTopRated.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
 
         return rootView;

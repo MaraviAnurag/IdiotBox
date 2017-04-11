@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +42,8 @@ public class MoviesUpcomingFragment extends Fragment {
     private MoviesAdapter adapter;
     private List<Movie> movieListUpcoming= new ArrayList<>();
     private View rootView;
+    private ProgressBar progressBar;
+
 
     public MoviesUpcomingFragment() {
         // Required empty public constructor
@@ -55,6 +58,9 @@ public class MoviesUpcomingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_movie_upcoming, container, false);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         /**
          * Upcoming Movies
@@ -101,6 +107,8 @@ public class MoviesUpcomingFragment extends Fragment {
         else{
             adapter = new MoviesAdapter(getActivity(), movieListUpcoming);
             recyclerViewMoviesUpcoming.setAdapter(adapter);
+            recyclerViewMoviesUpcoming.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
 
         return rootView;

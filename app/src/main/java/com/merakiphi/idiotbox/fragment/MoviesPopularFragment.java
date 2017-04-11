@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,6 +43,8 @@ public class MoviesPopularFragment extends Fragment {
     private MoviesAdapter adapter;
     private List<Movie> movieListPopular = new ArrayList<>();
     private View rootView;
+    private ProgressBar progressBar;
+
 
     public MoviesPopularFragment() {
         // Required empty public constructor
@@ -56,6 +59,10 @@ public class MoviesPopularFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_movie_popular, container, false);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 
         /**
          * Popular Movies
@@ -102,6 +109,8 @@ public class MoviesPopularFragment extends Fragment {
         else{
             adapter = new MoviesAdapter(getActivity(), movieListPopular);
             recyclerViewMoviesPopular.setAdapter(adapter);
+            recyclerViewMoviesPopular.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
 
         return rootView;
