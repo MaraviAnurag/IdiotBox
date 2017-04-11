@@ -25,12 +25,14 @@ import com.merakiphi.idiotbox.adapter.EpisodesAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
 import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
+import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,13 +156,13 @@ public class SeasonActivity extends AppCompatActivity {
                             Glide.with(getApplicationContext()).load(API_IMAGE_BASE_URL + API_IMAGE_SIZE_XXL + "/" + parentObject.getString("poster_path")).into((ImageView) findViewById(R.id.imageViewPoster));
                             textViewOverview.setText(parentObject.getString("overview"));
                             textViewTitle.setText(parentObject.getString("name"));
-                            textViewMovieOrTvShow.setText(parentObject.getString("air_date"));
+                            textViewMovieOrTvShow.setText(DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("air_date")));
                             JSONArray parentArray = parentObject.getJSONArray("episodes");
                             for(int i=0;i<parentArray.length();i++) {
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 TvShow tvShow = new TvShow();
                                 tvShow.setEpisodeId(finalObject.getString("id"));
-                                tvShow.setEpisodeAirDate(finalObject.getString("air_date"));
+                                tvShow.setEpisodeAirDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("air_date")));
                                 tvShow.setEpisodeNumber(finalObject.getString("episode_number"));
                                 tvShow.setEpisodeName(finalObject.getString("name"));
                                 tvShow.setEpisodeOverview(finalObject.getString("overview"));
@@ -181,6 +183,8 @@ public class SeasonActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
 

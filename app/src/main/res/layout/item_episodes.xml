@@ -42,16 +42,18 @@
                 />
         </LinearLayout>
 
-        <com.merakiphi.idiotbox.other.CustomTextView
+        <TextView
             android:id="@+id/textViewAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="24 Jul 2011"
             android:textColor="#fff"
             android:layout_marginBottom="8dp"
             android:textSize="10sp"/>
 
         <com.merakiphi.idiotbox.other.CustomTextView
+            android:id="@+id/textViewEpisodeOverview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"

@@ -28,12 +28,14 @@ import com.merakiphi.idiotbox.adapter.SeasonListAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
 import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
+import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,14 +108,14 @@ public class EpisodeActivity extends AppCompatActivity {
             progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.tv_show_accent), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
-            String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "?api_key=" + Contract.API_KEY;
+            final String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "?api_key=" + Contract.API_KEY;
         StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, episodeUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow Episode Details): " + response);
+                        Log.i(TAG, "URL (TvShow Episode Details): " + episodeUrl);
                         try {
-                            JSONObject parentObject= new JSONObject(response);
                             parseAndDisplayData(response);
 
                         } catch (JSONException e) {
@@ -184,14 +186,14 @@ public class EpisodeActivity extends AppCompatActivity {
      * Parse and display the data from Imdb
      */
     private void parseAndDisplayImdbData() {
-        String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "/external_ids?api_key=" + Contract.API_KEY;
+        final String episodeUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "/episode/" + episodeId + "/external_ids?api_key=" + Contract.API_KEY;
         StringRequest stringRequestEpisodes = new StringRequest(Request.Method.GET, episodeUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(Episode External Ids): " + response);
                         try {
-                            JSONObject parentObject= new JSONObject(response);
+                            final JSONObject parentObject= new JSONObject(response);
 
                             //Again send the request to the Omdb using imdb_id
                             StringRequest stringRequestImdb = new StringRequest(Request.Method.GET, OMDB_BASE_URL + parentObject.getString("imdb_id"),
@@ -200,11 +202,13 @@ public class EpisodeActivity extends AppCompatActivity {
                                         public void onResponse(String response) {
                                             Log.i(TAG, "onResponse(Episode Details Imdb): " + response);
                                             try {
+                                                Log.i(TAG, "URL (IMDB): " + OMDB_BASE_URL + parentObject.getString("imdb_id"));
                                                 JSONObject parentObject= new JSONObject(response);
                                                 textViewVoteAverage.setText(parentObject.getString("imdbRating"));
                                                 textViewYear.setText(parentObject.getString("Year"));
                                                 textViewReleaseDateRuntime.setText("• " + parentObject.getString("Runtime") + " • " + parentObject.getString("Released") + " • " + parentObject.getString("Rated") + "\n\n• " +parentObject.getString("Genre"));
                                                 textViewCountry.setText( parentObject.getString("Country"));
+                                                textViewDirector.setText("Director: " + parentObject.getString("Director"));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -287,15 +291,16 @@ public class EpisodeActivity extends AppCompatActivity {
     }
 
     /**
-     * Parse data for TV Show Details and show it.
+     * Parse data for TV Show Episode List and show it.
      */
     private void displayTvShowEpisodes(){
-        String seasonUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "?api_key=" + Contract.API_KEY;
+        final String seasonUrl = API_URL + Contract.API_TV + "/" + tvShowId + "/season/" + seasonNumber + "?api_key=" + Contract.API_KEY;
         StringRequest stringRequestEpisodesList = new StringRequest(Request.Method.GET, seasonUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse(TvShow Season Details): " + response);
+                        Log.i(TAG, "URL (TvShow Season Details): " + seasonUrl);
                         try {
                             JSONObject parentObject= new JSONObject(response);
                             JSONArray parentArray = parentObject.getJSONArray("episodes");
@@ -305,7 +310,7 @@ public class EpisodeActivity extends AppCompatActivity {
                                 Log.i(TAG, "onResponse: " + episodeId + finalObject.getString("episode_number"));
                                 if(!episodeId.equals(finalObject.getString("episode_number"))) {
                                     tvShow.setEpisodeId(finalObject.getString("id"));
-                                    tvShow.setEpisodeAirDate(finalObject.getString("air_date"));
+                                    tvShow.setEpisodeAirDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("air_date")));
                                     tvShow.setEpisodeNumber(finalObject.getString("episode_number"));
                                     tvShow.setEpisodeName(finalObject.getString("name"));
                                     tvShow.setEpisodeOverview(finalObject.getString("overview"));
@@ -325,6 +330,8 @@ public class EpisodeActivity extends AppCompatActivity {
                             recyclerViewEpisodes.setAdapter(adapterEpisodes);
 
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
 

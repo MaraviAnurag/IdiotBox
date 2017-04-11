@@ -40,6 +40,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.MyView
         holder.textViewEpisodeNumber.setText("EP " +movie.getEpisodeNumber() + " ");
         holder.textViewEpisodeName.setText(movie.getEpisodeName());
         holder.textViewAirDate.setText(movie.getEpisodeAirDate());
+        holder.textViewEpisodeOverview.setText(movie.getEpisodeOverview());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,13 +66,14 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageViewEpisode;
-        public TextView textViewEpisodeNumber, textViewEpisodeName, textViewAirDate;
+        public TextView textViewEpisodeNumber, textViewEpisodeName, textViewAirDate, textViewEpisodeOverview;
         public MyViewHolder(View view) {
             super(view);
             imageViewEpisode = (ImageView) view.findViewById(R.id.imageViewEpisode);
             textViewEpisodeNumber = (TextView) view.findViewById(R.id.textViewEpisodeNumber);
             textViewEpisodeName = (TextView) view.findViewById(R.id.textViewEpisodeName);
             textViewAirDate = (TextView) view.findViewById(R.id.textViewAirDate);
+            textViewEpisodeOverview = (TextView) view.findViewById(R.id.textViewEpisodeOverview);
         }
     }
 }

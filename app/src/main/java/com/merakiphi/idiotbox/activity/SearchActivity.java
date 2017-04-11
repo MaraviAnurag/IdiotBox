@@ -27,11 +27,13 @@ import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.SearchResultAdapter;
 import com.merakiphi.idiotbox.model.SearchResults;
 import com.merakiphi.idiotbox.other.CheckInternet;
+import com.merakiphi.idiotbox.other.DateFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,16 +193,18 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
                                 searchResults.setId(finalObject.getString("id"));
                                 searchResults.setMediaType(finalObject.getString("media_type"));
                                 if(finalObject.getString("media_type").equals("movie")) {
-                                    searchResults.setReleaseDate(finalObject.getString("release_date"));
+                                    searchResults.setReleaseDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("release_date")));
                                     searchResults.setOriginalTitle(finalObject.getString("original_title"));
                                 }
                                 if(finalObject.getString("media_type").equals("tv")){
-                                    searchResults.setReleaseDate(finalObject.getString("first_air_date"));
+                                    searchResults.setReleaseDate(DateFormatter.getInstance(getApplicationContext()).formatDate(finalObject.getString("first_air_date")));
                                     searchResults.setOriginalTitle(finalObject.getString("original_name"));
                                 }
                                 searchResultsList.add(searchResults);
                             }
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         adapterSearchResults = new SearchResultAdapter(getApplicationContext(), searchResultsList);

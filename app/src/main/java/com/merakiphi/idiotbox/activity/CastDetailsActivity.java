@@ -30,12 +30,14 @@ import com.merakiphi.idiotbox.model.Cast;
 import com.merakiphi.idiotbox.model.Movie;
 import com.merakiphi.idiotbox.other.CheckInternet;
 import com.merakiphi.idiotbox.other.Contract;
+import com.merakiphi.idiotbox.other.DateFormatter;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,13 +154,15 @@ public class CastDetailsActivity extends AppCompatActivity {
                                 textViewOverview.setText(parentObject.getString("biography"));
                                 textViewTitle.setText(parentObject.getString("name"));
                                 textViewCountry.setText("Born: " + parentObject.getString("place_of_birth"));
-                                textViewDirector.setText("Birthday: " + parentObject.getString("birthday"));
+                                textViewDirector.setText("Birthday: " + DateFormatter.getInstance(getApplicationContext()).formatDate(parentObject.getString("birthday")));
                                 if (parentObject.getInt("gender") == 1) {
                                     textViewMovieOrTvShow.setText("Female");
                                 } else {
                                     textViewMovieOrTvShow.setText("Male");
                                 }
                             } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (ParseException e) {
                                 e.printStackTrace();
                             }
 

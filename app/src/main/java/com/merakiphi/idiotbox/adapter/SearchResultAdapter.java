@@ -42,6 +42,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.textViewType.setText(movie.getMediaType());
         if(movie.getMediaType().equals("movie"))
             holder.textViewType.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+        if(movie.getMediaType().equals("tv"))
+            holder.textViewType.setTextColor(mContext.getResources().getColor(R.color.tv_show_accent));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
