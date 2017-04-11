@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
 
-                    <TextView
+                    <com.merakiphi.idiotbox.other.CustomTextView
                         android:id="@+id/textViewDirector"
                         android:text="Director"
                         android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                         android:textColor="#9E9E9E"
                         />
 
-                    <TextView
+                    <com.merakiphi.idiotbox.other.CustomTextView
                         android:id="@+id/textViewCountry"
                         android:text="Country"
                         android:layout_width="match_parent"
@@ -138,12 +138,6 @@
                     android:gravity="center"
                     >
 
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_weight="1">-->
-
                     <TextView
                         android:id="@+id/textViewVoteAverage"
                         android:layout_width="wrap_content"
@@ -157,31 +151,11 @@
                         android:layout_height="20dp"
                         android:scaleType="fitStart"
                         android:src="@drawable/imdb_logo"/>
-                    <!--</LinearLayout>-->
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_weight="1">-->
 
-                    <!--<TextView-->
-                    <!--android:id="@+id/textViewTmdbVote"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="8.1"-->
-                    <!--android:textColor="#00E676"-->
-                    <!--android:textSize="20sp"-->
-                    <!--/>-->
-                    <!--<ImageView-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:scaleType="fitStart"-->
-                    <!--android:src="@drawable/tmdb_logo"/>-->
-                    <!--</LinearLayout>-->
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SYNOPSIS:"
@@ -191,7 +165,7 @@
                 android:background="#fff"
                 />
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:background="#fff"
                 android:id="@+id/textViewOverview"
                 android:text="Overview"
@@ -211,7 +185,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_face_white_36dp"
+                    android:src="@drawable/ic_video_label_white_36dp"
                     />
 
                 <TextView
@@ -265,7 +239,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerViewSeasons"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"/>
 
                 </LinearLayout>
             </RelativeLayout>
@@ -275,4 +250,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

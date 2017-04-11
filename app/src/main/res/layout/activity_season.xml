@@ -71,7 +71,7 @@
             </RelativeLayout>
 
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SYNOPSIS:"
@@ -81,7 +81,7 @@
                 android:background="#fff"
                 />
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:background="#fff"
                 android:id="@+id/textViewOverview"
                 android:text="Overview"
@@ -102,7 +102,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_face_white_36dp"
+                    android:src="@drawable/ic_video_label_white_36dp"
                     />
 
                 <TextView

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewEpisode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
         android:layout_weight="2"
         android:src="@drawable/cover"/>
 
@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:id="@+id/textViewEpisodeNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EP 1"
                 android:textSize="16sp"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/tv_show_accent"
                 />
 
             <TextView
@@ -42,20 +42,22 @@
                 />
         </LinearLayout>
 
-        <TextView
+        <com.merakiphi.idiotbox.other.CustomTextView
             android:id="@+id/textViewAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="24 Jul 2011"
             android:textColor="#fff"
             android:layout_marginBottom="8dp"
-            android:textSize="12sp"/>
+            android:textSize="10sp"/>
 
-        <TextView
+        <com.merakiphi.idiotbox.other.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="#9E9E9E"
+            android:textSize="14sp"
             />
 
     </LinearLayout>

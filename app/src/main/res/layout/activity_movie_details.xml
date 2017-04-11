@@ -103,7 +103,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
             android:id="@+id/textViewDirector"
             android:text="Director"
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:textColor="#9E9E9E"
             />
 
-                    <TextView
+                    <com.merakiphi.idiotbox.other.CustomTextView
                         android:id="@+id/textViewCountry"
                         android:text="Country"
                         android:layout_width="match_parent"
@@ -160,7 +160,7 @@
                 android:textColor="@color/colorAccent"
                 />
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SYNOPSIS:"
@@ -170,13 +170,12 @@
                 android:background="#fff"
                 />
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:background="#fff"
                 android:id="@+id/textViewOverview"
                 android:text="Overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="monospace"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="16dp"

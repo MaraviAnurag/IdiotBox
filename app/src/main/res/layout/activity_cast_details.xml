@@ -84,7 +84,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
             android:id="@+id/textViewDirector"
             android:text="Director"
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 android:textColor="#9E9E9E"
             />
 
-                    <TextView
+                    <com.merakiphi.idiotbox.other.CustomTextView
                         android:id="@+id/textViewCountry"
                         android:text="Country"
                         android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                         android:visibility="gone"/>
                 </LinearLayout>
             </LinearLayout>
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="BIOGRAPHY:"
@@ -172,7 +172,7 @@
                 android:background="#fff"
                 />
 
-            <TextView
+            <com.merakiphi.idiotbox.other.CustomTextView
                 android:background="#fff"
                 android:id="@+id/textViewOverview"
                 android:text="Overview"
@@ -191,7 +191,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_face_white_36dp"
+                    android:src="@drawable/ic_movie_white_36dp"
                     />
 
                 <TextView
@@ -219,7 +219,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_movie_white_36dp" />
+                    android:src="@drawable/ic_tv_white_36dp" />
 
                 <TextView
                     android:text="Tv Shows"
