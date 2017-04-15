@@ -21,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.merakiphi.idiotbox.CheckError;
+import com.merakiphi.idiotbox.other.CheckError;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.EpisodesAdapter;
 import com.merakiphi.idiotbox.adapter.SeasonListAdapter;

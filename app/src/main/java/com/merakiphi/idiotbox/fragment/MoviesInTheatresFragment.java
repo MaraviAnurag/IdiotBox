@@ -71,7 +71,6 @@ public class MoviesInTheatresFragment extends Fragment {
         recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
         recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerViewMoviesInTheatres.setItemAnimator(new DefaultItemAnimator());
-        if(movieListInTheatres.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_NOW_PLAYING_REQUEST,
                     new Response.Listener<String>() {
                         @Override
@@ -90,6 +89,8 @@ public class MoviesInTheatresFragment extends Fragment {
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListInTheatres);
                                 recyclerViewMoviesInTheatres.setAdapter(adapter);
+                                recyclerViewMoviesInTheatres.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -103,15 +104,6 @@ public class MoviesInTheatresFragment extends Fragment {
             });
             // Add the request to the RequestQueue.
             VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-        }
-
-        else{
-            adapter = new MoviesAdapter(getActivity(), movieListInTheatres);
-            recyclerViewMoviesInTheatres.setAdapter(adapter);
-            recyclerViewMoviesInTheatres.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-        }
-
         return rootView;
     }
 

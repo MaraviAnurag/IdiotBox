@@ -1,4 +1,4 @@
-package com.merakiphi.idiotbox;
+package com.merakiphi.idiotbox.other;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -74,7 +74,6 @@ public class MoviesTopRatedFragment extends Fragment {
         recyclerViewMoviesTopRated.setLayoutManager(mLayoutManager);
         recyclerViewMoviesTopRated.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerViewMoviesTopRated.setItemAnimator(new DefaultItemAnimator());
-        if(movieListTopRated.size() == 0){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, MOVIE_TOP_RATED_REQUEST,
                     new Response.Listener<String>() {
                         @Override
@@ -93,6 +92,8 @@ public class MoviesTopRatedFragment extends Fragment {
                                 }
                                 adapter = new MoviesAdapter(getActivity(), movieListTopRated);
                                 recyclerViewMoviesTopRated.setAdapter(adapter);
+                                recyclerViewMoviesTopRated.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -105,14 +106,6 @@ public class MoviesTopRatedFragment extends Fragment {
             });
             // Add the request to the RequestQueue.
             VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-        }
-
-        else{
-            adapter = new MoviesAdapter(getActivity(), movieListTopRated);
-            recyclerViewMoviesTopRated.setAdapter(adapter);
-            recyclerViewMoviesTopRated.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-        }
 
         return rootView;
     }
