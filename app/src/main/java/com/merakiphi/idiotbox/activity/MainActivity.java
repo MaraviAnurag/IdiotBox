@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.fragment.MoviesFragment;
@@ -21,11 +22,31 @@ import com.merakiphi.idiotbox.fragment.TvShowsFragment;
 public class MainActivity extends AppCompatActivity {
 
         private Toolbar toolbar;
+    private TextView toolbar_title;
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment fragment,fragme;
     private FragmentManager fragmentManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        fragmentManager = getSupportFragmentManager();
+        fragme = new MoviesFragment();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragme).commit();
+
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -33,12 +54,20 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_documents:
+                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
+                    toolbar_title.setText("MOVIES");
+                    toolbar_title.setTextColor(getResources().getColor(R.color.colorAccent));
                     fragment = new MoviesFragment();
                     break;
                 case R.id.navigation_groups:
+                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
+                    toolbar_title.setText("TV SHOWS");
+                    toolbar_title.setTextColor(getResources().getColor(R.color.tv_show_accent));
                     fragment = new TvShowsFragment();
                     break;
                 case R.id.navigation_profile:
+                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
+                    toolbar_title.setText("PEOPLE");
                     fragment = new TvShowsFragment();
                     break;
                 default:
@@ -52,27 +81,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-
-
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fragmentManager = getSupportFragmentManager();
-        fragme = new MoviesFragment();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragme).commit();
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
