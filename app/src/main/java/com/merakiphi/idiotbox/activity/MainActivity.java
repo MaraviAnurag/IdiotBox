@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         private Toolbar toolbar;
     private TextView toolbar_title;
 
+    BottomNavigationView navigation;
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment fragment,fragme;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getSupportFragmentManager();
         fragme = new MoviesFragment();
@@ -65,13 +67,8 @@ public class MainActivity extends AppCompatActivity {
                     toolbar_title.setTextColor(getResources().getColor(R.color.tv_show_accent));
                     fragment = new TvShowsFragment();
                     break;
-                case R.id.navigation_profile:
-                    toolbar_title =(TextView) findViewById(R.id.toolbar_title);
-                    toolbar_title.setText("PEOPLE");
-                    fragment = new TvShowsFragment();
-                    break;
                 default:
-                    fragment = new TvShowsFragment();
+                    fragment = new MoviesFragment();
                     break;
             }
             final FragmentTransaction transaction = fragmentManager.beginTransaction();
