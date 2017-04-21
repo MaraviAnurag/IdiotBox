@@ -46,7 +46,7 @@ public class TvShowFragmentTopRated extends Fragment {
 
     //Tv Shows
     private RecyclerView recyclerViewTvShows;
-    private List<TvShow> tvShowsList= new ArrayList<>();
+    private List<TvShow> tvShowsList;
     private  RecyclerView.Adapter adapterTvShows;
     private RecyclerView.LayoutManager layoutManagerTvShows;
 
@@ -72,6 +72,7 @@ public class TvShowFragmentTopRated extends Fragment {
         /**
          * Top Rated Tv shows
          */
+        tvShowsList= new ArrayList<>();
         layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShowsTopRated);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);

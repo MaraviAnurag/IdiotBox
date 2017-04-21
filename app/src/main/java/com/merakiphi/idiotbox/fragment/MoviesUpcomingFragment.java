@@ -40,7 +40,7 @@ public class MoviesUpcomingFragment extends Fragment {
     private String tvShowDetailsRequest;
     private RecyclerView recyclerViewMoviesUpcoming;
     private MoviesAdapter adapter;
-    private List<Movie> movieListUpcoming= new ArrayList<>();
+    private List<Movie> movieListUpcoming;
     private View rootView;
     private ProgressBar progressBar;
 
@@ -66,7 +66,7 @@ public class MoviesUpcomingFragment extends Fragment {
          * Upcoming Movies
          */
         recyclerViewMoviesUpcoming = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesUpcoming);
-
+        movieListUpcoming= new ArrayList<>();
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewMoviesUpcoming.setLayoutManager(mLayoutManager);
         recyclerViewMoviesUpcoming.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));

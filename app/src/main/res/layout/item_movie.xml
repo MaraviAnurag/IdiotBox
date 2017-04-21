@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:scaleType="fitStart"/>
+            android:scaleType="fitCenter"/>
 
     </android.support.v7.widget.CardView>
 

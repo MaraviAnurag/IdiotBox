@@ -71,6 +71,7 @@ public class TvShowFragmentPopular extends Fragment {
         /**
          * Popular Tv shows
          */
+        tvShowsListPopular= new ArrayList<>();
         layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShows);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);

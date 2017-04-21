@@ -42,7 +42,7 @@ public class MoviesTopRatedFragment extends Fragment {
     private String tvShowDetailsRequest;
     private RecyclerView recyclerViewMoviesTopRated;
     private MoviesAdapter adapter;
-    private List<Movie> movieListTopRated= new ArrayList<>();
+    private List<Movie> movieListTopRated;
     private View rootView;
     private ProgressBar progressBar;
 
@@ -69,7 +69,7 @@ public class MoviesTopRatedFragment extends Fragment {
          * Top Rated Movies
          */
         recyclerViewMoviesTopRated = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesTopRated);
-
+        movieListTopRated= new ArrayList<>();
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewMoviesTopRated.setLayoutManager(mLayoutManager);
         recyclerViewMoviesTopRated.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));

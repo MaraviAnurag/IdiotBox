@@ -41,7 +41,7 @@ import static com.merakiphi.idiotbox.other.Contract.MOVIE_NOW_PLAYING_REQUEST;
 public class MoviesInTheatresFragment extends Fragment {
     private RecyclerView recyclerViewMoviesInTheatres;
     private MoviesAdapter adapter;
-    private List<Movie> movieListInTheatres = new ArrayList<>();
+    private List<Movie> movieListInTheatres;
     private View rootView;
     private ProgressBar progressBar;
 
@@ -66,7 +66,7 @@ public class MoviesInTheatresFragment extends Fragment {
          * In Theatres Movies
          */
         recyclerViewMoviesInTheatres = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesInTheatres);
-
+        movieListInTheatres = new ArrayList<>();
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewMoviesInTheatres.setLayoutManager(mLayoutManager);
         recyclerViewMoviesInTheatres.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -99,7 +99,7 @@ public class MoviesInTheatresFragment extends Fragment {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please check your internet connection.", Toast.LENGTH_SHORT).show();
                 }
             });
             // Add the request to the RequestQueue.

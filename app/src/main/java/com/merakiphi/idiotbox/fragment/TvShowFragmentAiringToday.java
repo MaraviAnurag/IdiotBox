@@ -41,7 +41,7 @@ public class TvShowFragmentAiringToday extends Fragment {
     private String tvShowDetailsRequest;
     //Tv Shows
     private RecyclerView recyclerViewTvShows;
-    private List<TvShow> tvShowsList= new ArrayList<>();
+    private List<TvShow> tvShowsList;
     private  RecyclerView.Adapter adapterTvShows;
     private RecyclerView.LayoutManager layoutManagerTvShows;
     private ProgressBar progressBar;
@@ -69,6 +69,7 @@ public class TvShowFragmentAiringToday extends Fragment {
         /**
          * Popular Tv shows
          */
+        tvShowsList= new ArrayList<>();
         layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShows);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);

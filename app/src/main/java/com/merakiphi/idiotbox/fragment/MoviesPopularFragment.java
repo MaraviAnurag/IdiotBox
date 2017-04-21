@@ -41,7 +41,7 @@ import static com.merakiphi.idiotbox.other.Contract.MOVIE_POPULAR_REQUEST;
 public class MoviesPopularFragment extends Fragment {
     private RecyclerView recyclerViewMoviesPopular;
     private MoviesAdapter adapter;
-    private List<Movie> movieListPopular = new ArrayList<>();
+    private List<Movie> movieListPopular;
     private View rootView;
     private ProgressBar progressBar;
 
@@ -67,6 +67,7 @@ public class MoviesPopularFragment extends Fragment {
         /**
          * Popular Movies
          */
+        movieListPopular = new ArrayList<>();
         recyclerViewMoviesPopular = (RecyclerView) rootView.findViewById(R.id.recyclerViewMoviesPopular);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewMoviesPopular.setLayoutManager(mLayoutManager);
