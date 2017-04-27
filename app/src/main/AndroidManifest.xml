@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name=".activity.AboutUsActivity"
+            android:theme="@style/MovieDetails"
             android:label="@string/activity_title_about_us" />
         <activity
             android:name=".activity.PrivacyPolicyActivity"
