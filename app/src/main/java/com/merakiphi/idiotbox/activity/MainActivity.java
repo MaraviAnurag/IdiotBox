@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);}
 
         if (id == R.id.action_settings) {
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);}
 
         if (id == R.id.action_about_us) {
