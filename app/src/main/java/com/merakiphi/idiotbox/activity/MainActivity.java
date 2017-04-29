@@ -1,6 +1,9 @@
 package com.merakiphi.idiotbox.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -60,12 +63,29 @@ public class MainActivity extends AppCompatActivity {
                     toolbar_title.setText("MOVIES");
                     toolbar_title.setTextColor(getResources().getColor(R.color.colorAccent));
                     fragment = new MoviesFragment();
+
+                    navigation.getMenu().findItem(R.id.navigation_groups).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                    navigation.setItemTextColor(new ColorStateList(new int[][] {
+                            new int[] {android.R.attr.state_checked}, // unchecked
+                            new int[] {-android.R.attr.state_checked} // unchecked
+                    }, new int[] {
+                            getResources().getColor(R.color.colorAccent),
+                            Color.WHITE
+                    }));
                     break;
                 case R.id.navigation_groups:
                     toolbar_title =(TextView) findViewById(R.id.toolbar_title);
                     toolbar_title.setText("TV SHOWS");
                     toolbar_title.setTextColor(getResources().getColor(R.color.tv_show_accent));
                     fragment = new TvShowsFragment();
+                    navigation.getMenu().findItem(R.id.navigation_groups).getIcon().setColorFilter(getResources().getColor(R.color.tv_show_accent), PorterDuff.Mode.SRC_IN);
+                    navigation.setItemTextColor(new ColorStateList(new int[][] {
+                            new int[] {android.R.attr.state_checked}, // unchecked
+                            new int[] {-android.R.attr.state_checked} // unchecked
+                    }, new int[] {
+                            getResources().getColor(R.color.tv_show_accent),
+                            Color.WHITE
+                    }));
                     break;
                 default:
                     fragment = new MoviesFragment();
