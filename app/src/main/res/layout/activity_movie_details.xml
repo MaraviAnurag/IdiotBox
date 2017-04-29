@@ -17,7 +17,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible">
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,10 +27,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/upper"/>
+
             <ImageView
                 android:id="@+id/imageViewPoster"
                 android:layout_width="match_parent"
@@ -40,13 +37,15 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/title_background"
                     android:orientation="vertical"
                     android:gravity="bottom"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:paddingTop="100dp"
+                    >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -91,7 +90,6 @@
                         android:textColor="#fff"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
                         android:layout_marginRight="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
                         />
 
                 </LinearLayout>
@@ -100,22 +98,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1">
 
-            <com.merakiphi.idiotbox.other.CustomTextView
-            android:id="@+id/textViewDirector"
-            android:text="Director"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_vertical_margin"
-                android:paddingBottom="8dp"
-                android:textColor="#9E9E9E"
-            />
+                    <com.merakiphi.idiotbox.other.CustomTextView
+                        android:id="@+id/textViewDirector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:text="Director"
+                        android:textColor="#9E9E9E" />
 
                     <com.merakiphi.idiotbox.other.CustomTextView
                         android:id="@+id/textViewCountry"
@@ -268,5 +266,12 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/upper"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
 
 </FrameLayout>
