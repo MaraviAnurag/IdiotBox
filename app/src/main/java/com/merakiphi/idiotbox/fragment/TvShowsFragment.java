@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.merakiphi.idiotbox.R;
 
@@ -84,7 +85,28 @@ public class TvShowsFragment extends Fragment {
 
         tabLayoutTvShows = (TabLayout) rootView.findViewById(R.id.tabsTvShows);
         tabLayoutTvShows.setupWithViewPager(viewPagerTvShows);
+        createTabIcons();
         return rootView;
+    }
+
+    //Custom Tab TextViews
+    private void createTabIcons() {
+
+        TextView tabOne = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabOne.setText("POPULAR");
+        tabLayoutTvShows.getTabAt(0).setCustomView(tabOne);
+
+        TextView tabTwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabTwo.setText("AIRING TODAY");
+        tabLayoutTvShows.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabThree.setText("ON THE AIR");
+        tabLayoutTvShows.getTabAt(2).setCustomView(tabThree);
+
+        TextView tabFour = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
+        tabFour.setText("TOP RATED");
+        tabLayoutTvShows.getTabAt(3).setCustomView(tabFour);
     }
 
     private void setupViewPager(ViewPager viewPager) {
