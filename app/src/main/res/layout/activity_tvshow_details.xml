@@ -35,13 +35,15 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/title_background"
                     android:orientation="vertical"
                     android:gravity="bottom"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:paddingTop="100dp"
+                    >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,7 +88,6 @@
                         android:textColor="#fff"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
                         android:layout_marginRight="@dimen/activity_vertical_margin"
-                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
                         />
 
                 </LinearLayout>
@@ -100,7 +101,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+
+                    android:layout_marginTop="8dp">
 
             <com.merakiphi.idiotbox.other.CustomTextView
             android:id="@+id/textViewDirector"
@@ -300,5 +303,10 @@
         </LinearLayout>
 
     </ScrollView>
-
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/upper"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
 </FrameLayout>

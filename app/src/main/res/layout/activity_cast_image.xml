@@ -9,6 +9,12 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/upper"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
     
 
 </RelativeLayout>
