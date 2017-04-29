@@ -215,7 +215,7 @@ public class SearchActivity extends AppCompatActivity  implements SearchView.OnQ
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Some Error Occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please check your internet connection.", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.

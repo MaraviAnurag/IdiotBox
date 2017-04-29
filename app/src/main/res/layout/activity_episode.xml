@@ -142,7 +142,6 @@
                         android:id="@+id/textViewVoteAverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="8.1"
                         android:textColor="#FFC107"
                         android:textSize="20sp"
                         />

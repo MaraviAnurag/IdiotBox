@@ -36,13 +36,14 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/title_background"
                     android:orientation="vertical"
                     android:gravity="bottom"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:paddingTop="80dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
