@@ -44,6 +44,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
+            //ToDo: Start working on this and set the icon
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
