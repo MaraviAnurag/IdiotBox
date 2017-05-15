@@ -21,7 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.TvShowAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
-import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_URL;
-import static com.merakiphi.idiotbox.other.Contract.API_URL;
+import static com.merakiphi.idiotbox.other.Contract.TV_POPULAR_REQUEST;
 
 /**
  * Created by anuragmaravi on 02/02/17.
@@ -40,7 +39,6 @@ import static com.merakiphi.idiotbox.other.Contract.API_URL;
 
 public class TvShowFragmentPopular extends Fragment {
     View rootView;
-    private String tvShowDetailsRequest;
     private ProgressBar progressBar;
 
     //Tv Shows
@@ -77,8 +75,7 @@ public class TvShowFragmentPopular extends Fragment {
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
 
         recyclerViewTvShows.setItemAnimator(new DefaultItemAnimator());
-        tvShowDetailsRequest = API_URL + Contract.API_TV + "/popular?api_key=" + Contract.API_KEY;
-            StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
+            StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_POPULAR_REQUEST,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

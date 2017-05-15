@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.merakiphi.idiotbox.R;
 import com.merakiphi.idiotbox.adapter.TvShowAdapter;
 import com.merakiphi.idiotbox.model.TvShow;
-import com.merakiphi.idiotbox.other.Contract;
 import com.merakiphi.idiotbox.other.VolleySingleton;
 
 import org.json.JSONArray;
@@ -30,7 +29,7 @@ import java.util.List;
 
 import static com.android.volley.VolleyLog.TAG;
 import static com.merakiphi.idiotbox.other.Contract.API_IMAGE_URL;
-import static com.merakiphi.idiotbox.other.Contract.API_URL;
+import static com.merakiphi.idiotbox.other.Contract.TV_AIRING_TODAY_REQUEST;
 
 /**
  * Created by anuragmaravi on 02/02/17.
@@ -38,7 +37,6 @@ import static com.merakiphi.idiotbox.other.Contract.API_URL;
 
 public class TvShowFragmentAiringToday extends Fragment {
     View rootView;
-    private String tvShowDetailsRequest;
     //Tv Shows
     private RecyclerView recyclerViewTvShows;
     private List<TvShow> tvShowsList;
@@ -73,8 +71,7 @@ public class TvShowFragmentAiringToday extends Fragment {
         layoutManagerTvShows =  new GridLayoutManager(getActivity(), 2);
         recyclerViewTvShows = (RecyclerView) rootView.findViewById(R.id.recyclerViewTvShows);
         recyclerViewTvShows.setLayoutManager(layoutManagerTvShows);
-        tvShowDetailsRequest = API_URL + Contract.API_TV + "/airing_today?api_key=" + Contract.API_KEY;
-        StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, tvShowDetailsRequest,
+        StringRequest stringRequestTvShowDetails = new StringRequest(Request.Method.GET, TV_AIRING_TODAY_REQUEST,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
