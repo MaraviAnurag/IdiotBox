@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView toolbar_title;
 
     BottomNavigationView navigation;
-
-
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment fragment,fragme;
     private FragmentManager fragmentManager;
