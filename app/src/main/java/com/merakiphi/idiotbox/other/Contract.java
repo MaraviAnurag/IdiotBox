@@ -55,10 +55,10 @@ public class Contract {
     public final static String MOVIE_TOP_RATED_REQUEST = API_URL + API_MOVIE + "/" + API_MOVIE_TOP_RATED + "?api_key=" + API_KEY + "&region=" + REGION_INDIA;
 
     //TvShows
-    public final static String TV_POPULAR_REQUEST = API_URL + API_TV + "/popular?api_key=" + API_KEY;
-    public final static String TV_ON_THE_AIR_REQUEST = API_URL + API_TV + "/on_the_air?api_key=" + API_KEY;
-    public final static String TV_AIRING_TODAY_REQUEST = API_URL + API_TV + "/airing_today?api_key=" + API_KEY;
-    public final static String TV_TOP_RATED_REQUEST = API_URL + API_TV + "/top_rated?api_key=" + API_KEY;
+    public final static String TV_POPULAR_REQUEST = API_URL + API_TV + "/popular?api_key=" + API_KEY + "&region=" + REGION_INDIA;
+    public final static String TV_ON_THE_AIR_REQUEST = API_URL + API_TV + "/on_the_air?api_key=" + API_KEY+ "&region=" + REGION_INDIA;
+    public final static String TV_AIRING_TODAY_REQUEST = API_URL + API_TV + "/airing_today?api_key=" + API_KEY+ "&region=" + REGION_INDIA;
+    public final static String TV_TOP_RATED_REQUEST = API_URL + API_TV + "/top_rated?api_key=" + API_KEY+ "&region=" + REGION_INDIA;
 
     //Omdb Base Url -- append imdb id
     public final static String OMDB_BASE_URL = "http://www.omdbapi.com/?i=";
